@@ -13,14 +13,24 @@ public class SetDisplay : MonoBehaviour {
             Display.displays[1].Activate();
         if (Display.displays.Length > 2)
             Display.displays[2].Activate();
+        if (Display.displays.Length > 3)
+            Display.displays[3].Activate();
+        if (Display.displays.Length > 4)
+            Display.displays[4].Activate();
+        //if (Display.displays.Length > 5)
+        //    Display.displays[5].Activate();
 
 
-        Display.displays[1].SetRenderingResolution(3360, 1050);
-        Display.displays[1].SetRenderingResolution(2048, 1152);
+        Display.displays[0].SetRenderingResolution(3360, 1050);
+        Display.displays[1].SetRenderingResolution(1920, 1200);
+        Display.displays[2].SetRenderingResolution(1920, 1200);
+        Display.displays[3].SetRenderingResolution(1920, 1200);
+        Display.displays[4].SetRenderingResolution(1920, 1200);
+
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 }

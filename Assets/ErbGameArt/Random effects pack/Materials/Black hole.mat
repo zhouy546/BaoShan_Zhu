@@ -19,12 +19,12 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - _EffectPower: 0.65
+    - _EffectPower: 0.5
     - _MultiLines: 0.5
-    - _PowerOfLines: 2.27
-    - _Speed: 0.2
+    - _PowerOfLines: 1
+    - _Speed: 0.25
     - _SpeenPower: 0.1
-    - _Spin: 4.74
-    - _Strensh: 1.437
+    - _Spin: 13.2
+    - _Strensh: 1.32
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 0}
