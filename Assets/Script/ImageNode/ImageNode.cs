@@ -95,7 +95,14 @@ public class ImageNode : INode {
 
         ID = id;
 
+
         setBack();
+
+
+    }
+
+    private void setSprite(Sprite _sprite) {
+        sprite.sprite = _sprite;
     }
 
 
@@ -179,6 +186,11 @@ public class ImageNode : INode {
         this.transform.rotation = Quaternion.Euler(Vector3.zero);
         //Debug.Log(GetTableMoveTargetPos());
         FallDown();
+
+        int val = UnityEngine.Random.Range(0, ValueSheet.Imagesprites.Count);
+
+        setSprite(ValueSheet.Imagesprites[val]);
+
     }
 
     //private void fallingDown() {

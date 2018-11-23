@@ -17,7 +17,7 @@ public class SubCamera : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        StartCoroutine(initialization());
+    //    StartCoroutine(initialization());
 	}
 
     public IEnumerator initialization() {
