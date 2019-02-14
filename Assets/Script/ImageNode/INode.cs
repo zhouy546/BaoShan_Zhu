@@ -30,4 +30,9 @@ public class INode : MonoBehaviour {
     public virtual void MoveOnTable() {
 
     }
+
+    public virtual void Selected()
+    {
+
+    }
 }

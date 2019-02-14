@@ -21,11 +21,11 @@ public class SetDisplay : MonoBehaviour {
         //    Display.displays[5].Activate();
 
 
-        Display.displays[0].SetRenderingResolution(3360, 1050);
-        Display.displays[1].SetRenderingResolution(1920, 1200);
-        Display.displays[2].SetRenderingResolution(1920, 1200);
-        Display.displays[3].SetRenderingResolution(1920, 1200);
-        Display.displays[4].SetRenderingResolution(1920, 1200);
+        //Display.displays[0].SetRenderingResolution(3360, 1050);
+        //Display.displays[1].SetRenderingResolution(1920, 1200);
+        //Display.displays[2].SetRenderingResolution(1920, 1200);
+        //Display.displays[3].SetRenderingResolution(1920, 1200);
+        //Display.displays[4].SetRenderingResolution(1920, 1200);
 
     }
 

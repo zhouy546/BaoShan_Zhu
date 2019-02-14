@@ -17,12 +17,15 @@ public class ImageNode : INode {
     public Action MovingOnTable;
     public Action SettingBack;
 
+    public Action Select;
+
     public YZPos yZPos;
     public float Xoffset;
 
     public int ID;
 
-
+    public bool isMoveToHole;
+    
     public float xmin, xmax;
 
 
@@ -47,6 +50,8 @@ public class ImageNode : INode {
 
     public SpriteRenderer sprite;
 
+    public bool b_like;
+
     // Use this for initialization
     public override void Start () {
         base.Start();
@@ -60,7 +65,9 @@ public class ImageNode : INode {
         FallingDown += MoveDown;
         MovingOnTable += tableMove;
         SettingBack += GoBack;
+        Select += MoveToHole;
 
+        Select += FTPupload;
     }
 
     Vector3 GenerateStartPos() {
@@ -98,7 +105,7 @@ public class ImageNode : INode {
 
         setBack();
 
-
+     //   Debug.Log(this.sprite.sprite.name);
     }
 
     private void setSprite(Sprite _sprite) {
@@ -137,6 +144,11 @@ public class ImageNode : INode {
 
     }
 
+    private Vector3 getBlackHolePos() {
+        Vector3 pos = new Vector3(subCamera.blackHoleTrans.position.x, subCamera.blackHoleTrans.position.y, this.transform.position.z);
+        return pos;
+    }
+
     public override void FallDown()
     {
         if (FallingDown != null)
@@ -162,11 +174,19 @@ public class ImageNode : INode {
     }
 
 
+    public override void Selected()
+    {
+        if (Select != null)
+        {
+            Select.Invoke();
+        }
+    }
+
     public void MoveDown()
     {
       //  Debug.Log(transform.position.x);
 
-        LeanTween.move(this.gameObject, new Vector3(transform.position.x, -2.5f, transform.position.z), 10f).setOnComplete(MoveOnTable);
+        LeanTween.move(this.gameObject, new Vector3(transform.position.x, -2.5f, transform.position.z), 10f).setOnUpdate(UpdatePos).setOnComplete(MoveOnTable);
 
     }
 
@@ -175,7 +195,7 @@ public class ImageNode : INode {
         this.transform.position = CicleTrans.position;
         this.transform.rotation = Quaternion.Euler(getTableRotation());
       //  Debug.Log("runn");
-        LeanTween.move(this.gameObject, GetTableMoveTargetPos(),10f).setOnComplete(setBack);
+        LeanTween.move(this.gameObject, GetTableMoveTargetPos(),10f).setOnUpdate(UpdatePos).setOnComplete(setBack);
     }
 
     public void GoBack() {
@@ -184,6 +204,8 @@ public class ImageNode : INode {
         //Debug.Log(Max + "min:" + Min);
         this.transform.position = GenerateStartPos();
         this.transform.rotation = Quaternion.Euler(Vector3.zero);
+        this.transform.localScale = Vector3.one*0.5F;
+        b_OnEnter = false;
         //Debug.Log(GetTableMoveTargetPos());
         FallDown();
 
@@ -191,6 +213,71 @@ public class ImageNode : INode {
 
         setSprite(ValueSheet.Imagesprites[val]);
 
+    }
+
+    public void MoveToHole()
+    {
+        LeanTween.cancel(this.gameObject);
+        LeanTween.move(this.gameObject, getBlackHolePos(), 1f).setOnComplete(GoBack);
+        LeanTween.scale(this.gameObject, Vector3.zero, 1f);
+        subCamera.UploadImages.Add(this);//扫码后清除
+    }
+
+
+    public void FTPupload() {
+        string localFile = Application.streamingAssetsPath + "/"+"Image"+"/" + this.sprite.sprite.name;
+       StartCoroutine( Upload.instance.uploadImage(ID.ToString(), subCamera.UploadImages.Count.ToString(), ".jpg", localFile));
+
+    }
+
+    private bool b_OnEnter;
+    public void OnPointerEnter() {
+         Selected();
+
+        //Moveto black hole 重置b_OnEnter;
+
+        //添加list，FTP上传，命名从0开始， 
+
+    }
+
+    public void OnPointerUpdate() {
+
+    }
+
+
+
+    public void AddLikeUpdate() {
+        if (b_OnEnter == false)
+        {
+            b_OnEnter = true;
+            OnPointerEnter();
+        }
+
+        OnPointerUpdate();
+
+    }
+
+    public void Update()
+    {
+        //if (isMoveToHole) {
+        //    isMoveToHole = false;
+        //    MoveToHole();
+        //   // FTPupload();
+        //}
+
+  
+    }
+
+    public struct PositionXY {
+       public float x;
+       public float y;
+    }
+
+    public PositionXY positionXY;
+
+    private void UpdatePos(float val) {
+        positionXY.x = this.transform.position.x;
+        positionXY.y = this.transform.position.y;
     }
 
     //private void fallingDown() {

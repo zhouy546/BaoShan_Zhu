@@ -114,7 +114,8 @@ public class DealWithUDPMessage : MonoBehaviour {
 
 
 
-    private void Awake()
+
+        private void Awake()
     {
 
     }
