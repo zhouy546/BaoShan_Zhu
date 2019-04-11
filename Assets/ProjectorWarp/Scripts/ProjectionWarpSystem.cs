@@ -100,16 +100,23 @@ public class ProjectionWarpSystem : MonoBehaviour {
     }
     void Start()
     {
+        defaultCalibrationFile = "";
+        Debug.Log(defaultCalibrationFile.Length);
         if (defaultCalibrationFile.Length > 0)
         {
             LoadCalibration(defaultCalibrationFile);
         }
-        else if (File.Exists(Application.dataPath + "/../default_calibration.json"))
+        else if (File.Exists(Application.streamingAssetsPath + "/projector_calibration.json"))
         {
         
 
-            LoadCalibration(Application.streamingAssetsPath + "/default_calibration.json");
+            LoadCalibration(Application.streamingAssetsPath + "/projector_calibration.json");
+            Debug.Log("running");
         }
+
+        Debug.Log(File.Exists(Application.streamingAssetsPath + "/default_calibration.json"));
+        
+        Debug.Log(Application.streamingAssetsPath + "/default_calibration.json");
         AssignReferences();
 
     }
